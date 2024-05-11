@@ -1,0 +1,10 @@
+{
+  "name": "junna-twitch-assets",
+  "version": "1.0.0",
+  "scripts": {
+    "start:datetime-panel": "electron datetime-panel"
+  },
+  "dependencies": {
+    "electron": "^30.0.3"
+  }
+}

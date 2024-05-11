@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.cdnfonts.com/css/hack" rel="stylesheet">
+  <title>datetime-panel @ Junna Twitch Assets</title>
+  <style>
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: 'Hack', sans-serif;
+      padding: 0px;
+      margin: 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    html {
+      background-color: #00FF00;
+      color: #F4FAFE;
+    }
+    .panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: right;
+      align-items: end;
+      width: 500px;
+      height: 500px;
+      gap: 9px
+    }
+    .panel__main {
+      font-size: 126px;
+    }
+    .panel__secondary {
+      font-size: 78px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="panel">
+    <div class="panel__main currentTime"></div>
+    <div class="panel__secondary dayOfWeek"></div>
+    <div class="panel__secondary monthOfYear"></div>
+  </div>
+</body>
+
+<script>
+  const getDayOfWeek = () => {
+    const daysOfWeekText = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const today = new Date();
+    return daysOfWeekText[today.getDay()];
+  }
+
+  const getMonthOfYear = () => {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const today = new Date();
+    const month = months[today.getMonth()];
+    const day = today.getDate();
+
+    return `${month} ${day}`;
+  }
+
+  function getCurrentTime() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+
+    return `${hours}:${minutes}`;
+  }
+
+  const writeCurrentTime = (dom, currentTime) => {
+    dom.innerHTML = currentTime;
+  }
+
+  const currentTimeDom = document.querySelector('.currentTime');
+  const dayOfWeekDom = document.querySelector('.dayOfWeek');
+  const monthOfYearDom = document.querySelector('.monthOfYear');
+
+  const currentTime = getCurrentTime();
+  const dayOfWeek = getDayOfWeek();
+  const monthOfYear = getMonthOfYear();
+  // 現在時刻更新のインターバル（10秒）
+  const daley = 10000;
+
+  currentTimeDom.innerHTML = currentTime;
+  dayOfWeekDom.innerHTML = dayOfWeek;
+  monthOfYearDom.innerHTML = monthOfYear;
+
+  setInterval(() => writeCurrentTime(currentTimeDom, getCurrentTime()), daley);
+</script>
+</html>
